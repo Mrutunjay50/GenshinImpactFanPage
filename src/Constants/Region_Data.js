@@ -1,6 +1,6 @@
 import {Sumeru6,Mon4,Mondstadt12,Liyue1,Liyue2,Inazuma1,Inazuma2,Inazuma3,Inazuma4,Inazuma5,Inazuma6, Fontaine1, Fontaine2, Fontaine3} from '../assets/index';
 import {Element_Anemo,Element_Cryo,Element_Dendro,Element_Electro,Element_Geo,Element_Hydro,Element_Pyro} from '../assets/index';
-import {Nahida,Paimon,Venti_Ori,Zhongli,Raiden_shogun20,Furina} from '../assets/index';
+import {Nahida,Paimon,Venti_Ori,Zhongli,Raiden_shogun20,FurinaOri} from '../assets/index';
 const Region_Data = [
 
     {
@@ -54,7 +54,7 @@ const Region_Data = [
         nation:'Fontaine',
         element:'Hydro',
         Archon:'Focalors',
-        imgCharacter : Furina,
+        imgCharacter : FurinaOri,
         Ideals:'Justice',
         GoverningBody:'Fontaine Court'
     },

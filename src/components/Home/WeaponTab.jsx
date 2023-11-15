@@ -1,5 +1,5 @@
 import React from 'react'
-import {EngulfingLightning, FloatingDreams, Vortex, Elegy } from "../../assets";
+import {EngulfingLightning, FloatingDreams, Vortex, Elegy, AetherSword, TranquilWaters } from "../../assets";
 import { motion } from "framer-motion";
 import { useTheme } from "../ThemeContext";
 
@@ -25,17 +25,19 @@ const WeaponTab = ({ref, mainControls}) => {
             ${theme.ThemeFocalors ? "hover:border-[#6d9de9] bg-[#2857aa4c] hover:bg-[#2858aa8f]" : ""} w-[500px] p-5 h-[600px] opacity-70 transition ease-all duration-500 hover:opacity-100 bg-[#282724] m-8 rounded-md`}>
         <img
           className={`absolute  opacity-0
-          // ${theme.ThemeHome ? "" : ""}
+          // ${theme.ThemeHome ? "bottom-20 left-10" : ""}
             ${theme.ThemeZhongli ? " left-10 bottom-40" : ""}
             ${theme.ThemeVenti ? "w-[70%] h-[auto] bottom-16 left-5" : ""}
             ${theme.ThemeEi ? "bottom-20 right-10" : ""}
             ${theme.ThemeNahida ? "w-[50%] h-[auto] bottom-20 left-10" : ""}
-            ${theme.ThemeFocalors ? "text-white" : ""}
+            ${theme.ThemeFocalors ? "bottom-20 left-10" : ""}
            transition ease-all duration-300 group-hover:opacity-100`}
-          src={theme.ThemeEi ? EngulfingLightning : theme.ThemeZhongli ? Vortex : theme.ThemeVenti ? Elegy : theme.ThemeNahida ? FloatingDreams : ""}
+          src={theme.ThemeHome ?
+            AetherSword : theme.ThemeEi ? EngulfingLightning : theme.ThemeZhongli ? Vortex : theme.ThemeVenti ? Elegy : theme.ThemeNahida ? FloatingDreams : theme.ThemeFocalors ? TranquilWaters : ""}
           alt="Weapons"
         />
         <h4 className={`${theme.ThemeZhongli ? " text-yellow-700 font-semibold" : ""}
+            ${theme.ThemeHome ? " text-[#bfe5f9] font-semibold" : ""}
             ${theme.ThemeVenti ? " text-blue-300 font-semibold" : ""}
             ${theme.ThemeEi ? " text-[#9e86ef] font-semibold" : ""}
             ${theme.ThemeNahida ? " text-green-600 font-semibold" : ""}
@@ -45,10 +47,11 @@ const WeaponTab = ({ref, mainControls}) => {
         </h4>
         <pre className={`
         ${theme.ThemeZhongli ? " top-60 left-20 text-yellow-300 font-semibold" : ""}
+            ${theme.ThemeHome ? "top-60 left-20 text-[#bfe5f9] font-semibold" : ""}
             ${theme.ThemeVenti ? "bottom-[16%] right-52 text-blue-300 font-semibold" : ""}
             ${theme.ThemeEi ? "bottom-60 left-16 text-[#9e86ef] font-semibold" : ""}
             ${theme.ThemeNahida ? "bottom-60 left-[40%] text-green-600 font-semibold transition-all -rotate-45" : ""}
-            ${theme.ThemeFocalors ? "text-white" : ""}
+            ${theme.ThemeFocalors ? "text-white top-60 left-20 font-semibold" : ""}
          absolute opacity-0 transition ease-all duration-300 group-hover:opacity-100`}>
           WE
           <br />
@@ -58,10 +61,11 @@ const WeaponTab = ({ref, mainControls}) => {
           <br />S
         </pre>
         <pre className={`${theme.ThemeZhongli ? "bottom-40 right-[45%] text-yellow-300 font-semibold" : ""}
+            ${theme.ThemeHome ? " bottom-20 right-[35%] text-[#bfe5f9] font-semibold" : ""}
             ${theme.ThemeVenti ? " bottom-20 right-[35%] text-blue-300 font-semibold" : ""}
             ${theme.ThemeEi ? "bottom-40 right-[45%] text-[#9e86ef] font-semibold" : ""}
             ${theme.ThemeNahida ? "bottom-32 left-[15%] text-green-600 font-semibold transition-all -rotate-45" : ""}
-            ${theme.ThemeFocalors ? "text-white" : ""} absolute  opacity-0 transition ease-all duration-300 group-hover:opacity-100`}>
+            ${theme.ThemeFocalors ? "text-white  bottom-20 right-[35%] font-semibold" : ""} absolute  opacity-0 transition ease-all duration-300 group-hover:opacity-100`}>
           DE
           <br />
           TA

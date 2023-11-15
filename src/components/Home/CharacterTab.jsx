@@ -4,7 +4,7 @@ import {
   Nahida,
   Zhongli,
   Venti_Ori,
-  Furina,
+  FurinaOri1,
   Lumine0,
 } from "../../assets";
 import { motion } from "framer-motion";
@@ -61,7 +61,7 @@ const CharacterTab = ({ ref, mainControls }) => {
             ${theme.ThemeVenti ? "w-[70%] h-[auto] bottom-40 left-10" : ""}
             ${theme.ThemeEi ? "bottom-20 right-10" : ""}
             ${theme.ThemeNahida ? "w-[70%] h-[auto] bottom-40 left-0" : ""}
-            ${theme.ThemeFocalors ? "text-white" : ""}
+            ${theme.ThemeFocalors ? "w-[70%] h-[auto] bottom-20 left-0" : ""}
            transition ease-all duration-300 group-hover:opacity-100`}
           src={
             theme.ThemeHome ?
@@ -74,6 +74,8 @@ const CharacterTab = ({ ref, mainControls }) => {
               ? Venti_Ori
               : theme.ThemeNahida
               ? Nahida
+              : theme.ThemeFocalors
+              ? FurinaOri1
               : ""
           }
           alt="Characters"
@@ -118,7 +120,7 @@ const CharacterTab = ({ ref, mainControls }) => {
                 ? "top-5 left-20 text-green-600 font-semibold"
                 : ""
             }
-            ${theme.ThemeFocalors ? "text-white" : ""}
+            ${theme.ThemeFocalors ? "top-5 left-12 text-white font-semibold" : ""}
          absolute opacity-0 transition ease-all duration-300 group-hover:opacity-100`}
         >
           CH
@@ -157,7 +159,7 @@ const CharacterTab = ({ ref, mainControls }) => {
                 : ""
             }
             ${
-              theme.ThemeFocalors ? "text-white" : ""
+              theme.ThemeFocalors ? "bottom-40 right-[45%] text-white font-semibold" : ""
             } absolute  opacity-0 transition ease-all duration-300 group-hover:opacity-100`}
         >
           DE

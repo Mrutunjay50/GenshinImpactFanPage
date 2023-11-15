@@ -1,9 +1,9 @@
 import React from 'react'
 import LOGO, {HoYo} from "../assets/index";
 
-const Footer = () => {
+const Footer = ({className}) => {
   return (
-    <div className=' bg-black flex flex-col items-center justify-center text-[#cdc4c4] h-[120px]'>
+    <div className={className}>
         
         <img
           src={HoYo}

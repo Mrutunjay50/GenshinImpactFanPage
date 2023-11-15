@@ -73,6 +73,11 @@ import Home from "./Regions/Home.jpg";
 import Elegy from "./Weapon_Elegy_for_the_End.png";
 import FloatingDreams from "./Weapon_A_Thousand_Floating_Dreams_2nd.png";
 import Vortex from "./Weapon_Vortex_Vanquisher_2nd.png";
+import AetherSword from "./AetherSword.png";
+import TranquilWaters from './TranquilWaters.png';
+import FurinaOri from "./CharaterPic/FurinaOri.png";
+import FurinaOri1 from "./CharaterPic/FurinaOri1.png";
+
 
 export default LOGO;
 export {
@@ -146,8 +151,12 @@ Zhongli7,
   Furina0,
   Furina,
   Furina1,
+  FurinaOri,
+  FurinaOri1,
+  AetherSword,
   EngulfingLightning,
   Elegy,
   FloatingDreams,
   Vortex,
+  TranquilWaters
 };
