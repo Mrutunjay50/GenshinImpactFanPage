@@ -58,11 +58,11 @@ const NavBar = () => {
       }}
     >
       <div className="navbar m-0 h-[13vh] flex flex-row  justify-between items-center relative">
-        <Link to="/GenshinImpactFanPage/" >
+        <Link to="/GenshinImpactFanPage/"  className="z-50">
         <img
           src={LOGO}
           alt="GENSHIN"
-          className=" xs:h-[80px] ss:h-[50px] sm:h-[100px] xs:w-[160px] ss:w-[100px] sm:w-[180px] ml-4 z-10"
+          className=" xs:h-[80px] ss:h-[50px] sm:h-[100px] xs:w-[160px] ss:w-[100px] sm:w-[180px] ml-4"
         />
         </Link>
 
@@ -98,7 +98,7 @@ const NavBar = () => {
         <div
           className={`transition-all duration-300 ${
             showRegionBar ? "opacity-100 " : "opacity-0 -translate-y-6"
-          } m-0 absolute w-[100%] h-[10vh] flex flex-row px-4 justify-center items-center`}
+          } m-0 absolute w-[100%] h-[13vh] flex flex-row px-4 justify-center items-center`}
 
           style={{
             backgroundImage: theme.ThemeVenti
