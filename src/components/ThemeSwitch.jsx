@@ -6,7 +6,7 @@ const Switch = ({rot}) => {
  
  
   return (
-    <div className={`origin-center transition transform duration-300 ease-in-out ${rot ? "rotate-90" : "-rotate-90"} bg-[#ffffff1b] fixed right-2 bottom-1 z-20 rounded-full h-[40px] w-[40px] flex flex-row items-center justify-center cursor-pointer`}>
+    <div className={` origin-center transition transform duration-300 ease-in-out ${rot ? "rotate-90" : "-rotate-90"} bg-[#ffffff1b] fixed right-2 bottom-[1.5rem] z-20 rounded-full h-[40px] w-[40px] flex flex-row items-center justify-center cursor-pointer`}>
       <div className="relative w-[30px] h-[30px]  flex flex-wrap">
         <div className="bg-red-500 absolute top-1/2 transform -translate-y-1/2 left-0 rounded-full h-[15px] w-[15px]"></div>
         <div className="bg-yellow-500 absolute top-0 bottom-0 left-1/2 transform -translate-x-1/2 rounded-full h-[15px] w-[15px]"></div>
@@ -39,7 +39,7 @@ const ThemeSwitch = () => {
     <div onClick={ () => setButton(!button)} >
       <Switch rot={button}/>
     </div>
-      <div className={` ${button ? "translate-x-0" : "translate-x-[700px]"} transition duration-300 ease-in-out fixed bottom-[40px] -right-1 z-10 bg-[#ffffff09] h-[10vh] w-[700px] p-2 flex flex-row flex-wrap rounded-sm text-white font-semibold`}>
+      <div className={` ${button ? "translate-x-0" : "translate-x-[calc(700px+3rem)]"} transition duration-300 ease-in-out fixed bottom-[0.3rem] right-[3rem] z-10 bg-[#ffffff09] h-[10vh] w-[700px] p-2 flex flex-row flex-wrap rounded-sm text-white font-semibold`}>
         {ThemeData.map((item, index) => (
           <>
             <div

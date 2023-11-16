@@ -10,13 +10,15 @@ const WeaponTab = ({ref, mainControls}) => {
     {/* weapons */}
     <motion.div
       ref={ref}
-        animate={mainControls}
-        initial="hidden"
-        transition={{ type: "spring",  duration : 1, bounce : 0.3 }}
-        variants={{
-          hidden: { opacity: 0, x: 75 },
-          visible: { opacity: 1, x: 0 },
-        }}
+  animate={mainControls}
+  initial="hidden"
+  transition={{
+    type: "spring", duration: 0.3, bounce: 0.3  // Reduce bounce
+  }}
+  variants={{
+    hidden: { opacity: 0, x: 75 },
+    visible: { opacity: 1, x: 0 },
+  }}
         className={`group relative border-2 border-dimWhite  ${theme.ThemeHome ? "hover:border-gray-200 bg-[#1a1a2f9d] hover:bg-[#1a1a2f]" : ""}
              ${theme.ThemeZhongli ? "hover:border-yellow-200 bg-[#2827244d] hover:bg-[#282724e7] " : ""}
             ${theme.ThemeVenti ? "hover:border-[#99b2e4] bg-[#b5ebd73e] hover:bg-[#235d486b]" : ""}

@@ -7,7 +7,7 @@ import WeaponTab from "./WeaponTab";
 const OutlinedInfo = () => {
   const [date, setDate] = useState("");
   const [day, setDay] = useState("");
-  const {theme} = useTheme();
+  const { theme } = useTheme();
 
   function getDayFromDate(dateString) {
     const Days = [
@@ -49,25 +49,36 @@ const OutlinedInfo = () => {
 
   return (
     <>
-      
-      <CharacterTab ref={ref} mainControls={mainControls}/>
-      <WeaponTab ref={ref} mainControls={mainControls}/>
+      <CharacterTab ref={ref} mainControls={mainControls} />
+      <WeaponTab ref={ref} mainControls={mainControls} />
       {/* Artifact Sets */}
       <motion.div
-      ref={ref}
+        ref={ref}
         animate={mainControls}
         initial="hidden"
-        transition={{ type: "spring",  duration : 1, bounce : 0.3  }}
+        transition={{
+          type: "spring", duration: 0.3, bounce: 0.3  // Reduce bounce
+        }}
         variants={{
           hidden: { opacity: 0, x: -75 },
           visible: { opacity: 1, x: 0 },
         }}
-        className={`group relative border-2 border-dimWhite  ${theme.ThemeHome ? "hover:border-gray-200 bg-[#1a1a2f9d] hover:bg-[#1a1a2f]" : ""}
-             ${theme.ThemeZhongli ? "hover:border-yellow-200 bg-[#2827244d] hover:bg-[#282724e7] " : ""}
-            ${theme.ThemeVenti ? "hover:border-[#99b2e4] bg-[#b5ebd73e] hover:bg-[#235d486b]" : ""}
-            ${theme.ThemeEi ? "hover:border-[#5b4aa4] bg-[#332d4467] hover:bg-[#332d44d4]" : ""}
-            ${theme.ThemeNahida ? "hover:border-[#b1e96d] bg-[#dcf7e14c] hover:bg-[#328942bd]" : ""}
-            ${theme.ThemeFocalors ? "hover:border-[#6d9de9] bg-[#2857aa4c] hover:bg-[#2858aa8f]" : ""} w-[500px] p-5 h-[600px] opacity-70 transition ease-all duration-500 hover:opacity-100 bg-[#282724] m-8 rounded-md`}>
+        className={`group relative border-2 border-dimWhite  ${
+          theme.ThemeHome
+            ? "hover:border-gray-200 bg-[#1a1a2f9d] hover:bg-[#1a1a2f]"
+            : theme.ThemeZhongli
+            ? "hover:border-yellow-200 bg-[#2827244d] hover:bg-[#282724e7] "
+            : theme.ThemeVenti
+            ? "hover:border-[#99b2e4] bg-[#b5ebd73e] hover:bg-[#235d486b]"
+            : theme.ThemeEi
+            ? "hover:border-[#5b4aa4] bg-[#332d4467] hover:bg-[#332d44d4]"
+            : theme.ThemeNahida
+            ? "hover:border-[#b1e96d] bg-[#dcf7e14c] hover:bg-[#328942bd]"
+            : theme.ThemeFocalors
+            ? "hover:border-[#6d9de9] bg-[#2857aa4c] hover:bg-[#2858aa8f]"
+            : ""
+        } w-[500px] p-5 h-[600px] opacity-70 transition ease-all duration-500 hover:opacity-100 bg-[#282724] m-8 rounded-md`}
+      >
         <h2 className=" text-center text-[25px] text-yellow-400">
           Date to Day Calculator
         </h2>
@@ -94,22 +105,32 @@ const OutlinedInfo = () => {
       </motion.div>
       {/*Weekly Bosses*/}
       <motion.div
-      ref={ref}
+        ref={ref}
         animate={mainControls}
         initial="hidden"
-        transition={{  type: "spring",  duration : 1, bounce : 0.3 }}
+        transition={{
+          type: "spring", duration: 0.3, bounce: 0.3  // Reduce bounce
+        }}
         variants={{
           hidden: { opacity: 0, x: 75 },
           visible: { opacity: 1, x: 0 },
         }}
-        className={`group relative border-2 border-dimWhite  ${theme.ThemeHome ? "hover:border-gray-200 bg-[#1a1a2f9d] hover:bg-[#1a1a2f]" : ""}
-             ${theme.ThemeZhongli ? "hover:border-yellow-200 bg-[#2827244d] hover:bg-[#282724e7] " : ""}
-            ${theme.ThemeVenti ? "hover:border-[#99b2e4] bg-[#b5ebd73e] hover:bg-[#235d486b]" : ""}
-            ${theme.ThemeEi ? "hover:border-[#5b4aa4] bg-[#332d4467] hover:bg-[#332d44d4]" : ""}
-            ${theme.ThemeNahida ? "hover:border-[#b1e96d] bg-[#dcf7e14c] hover:bg-[#328942bd]" : ""}
-            ${theme.ThemeFocalors ? "hover:border-[#6d9de9] bg-[#2857aa4c] hover:bg-[#2858aa8f]" : ""} w-[500px] p-5 h-[600px] opacity-70 transition ease-all duration-500 hover:opacity-100 bg-[#282724] m-8 rounded-md`}>
-          
-        </motion.div>
+        className={`group relative border-2 border-dimWhite  ${
+          theme.ThemeHome
+            ? "hover:border-gray-200 bg-[#1a1a2f9d] hover:bg-[#1a1a2f]"
+            : theme.ThemeZhongli
+            ? "hover:border-yellow-200 bg-[#2827244d] hover:bg-[#282724e7] "
+            : theme.ThemeVenti
+            ? "hover:border-[#99b2e4] bg-[#b5ebd73e] hover:bg-[#235d486b]"
+            : theme.ThemeEi
+            ? "hover:border-[#5b4aa4] bg-[#332d4467] hover:bg-[#332d44d4]"
+            : theme.ThemeNahida
+            ? "hover:border-[#b1e96d] bg-[#dcf7e14c] hover:bg-[#328942bd]"
+            : theme.ThemeFocalors
+            ? "hover:border-[#6d9de9] bg-[#2857aa4c] hover:bg-[#2858aa8f]"
+            : ""
+        } w-[500px] p-5 h-[600px] opacity-70 transition ease-all duration-500 hover:opacity-100 bg-[#282724] m-8 rounded-md`}
+      ></motion.div>
     </>
   );
 };

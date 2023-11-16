@@ -15,6 +15,7 @@ import {
 } from "../assets";
 import { useTheme } from "./ThemeContext";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Signup = () => {
   const { theme } = useTheme();
@@ -44,8 +45,15 @@ const Signup = () => {
         backgroundPosition: theme.ThemeZhongli || theme.ThemeEi ? "" : "center",
       }}
     >
-      <div
-        className={`h-[75%] w-[80%] ${
+      <motion.div
+      variants={{
+            hidden: { opacity: 0, y: 100 },
+            visible: { opacity: 1, y: 0 },
+          }}
+          initial="hidden"
+          animate="visible"
+          transition={{ type: "spring", duration: 1, bounce: 0.3 }}
+        className={`h-[75%] w-[80%] mt-10 ${
           theme.ThemeHome
             ? "hover:border-gray-200 bg-gradient-to-r from-[#1a1a2f] to-[#ffffff4f]"
             : theme.ThemeZhongli
@@ -228,7 +236,7 @@ const Signup = () => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
