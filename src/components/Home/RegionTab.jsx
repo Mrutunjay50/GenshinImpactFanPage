@@ -97,8 +97,8 @@ const RegionData = ({ item, index }) => {
         </motion.div>
         
         <motion.a
-          className="absolute bottom-8 text-white text-[16px] font-semibold px-6 py-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/30 hover:bg-white/20 hover:border-white/50 transition-all duration-300 shadow-lg hover:shadow-xl"
-          href="/"
+          className="absolute bottom-8 text-white text-[16px] font-semibold px-6 py-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/30 hover:bg-white/20 hover:border-white/50 transition-all duration-300 shadow-lg hover:shadow-xl pointer-events-auto"
+          href="/GenshinImpactFanPage/characters"
           initial={{ opacity: 0, y: 20, scale: 0.9 }}
           animate={isVisible1 ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 20, scale: 0.9 }}
           transition={{ 
@@ -110,7 +110,7 @@ const RegionData = ({ item, index }) => {
           whileHover={{ scale: 1.1, y: -2 }}
           whileTap={{ scale: 0.95 }}
         >
-          Explore More
+          View Characters
         </motion.a>
       </div>
 

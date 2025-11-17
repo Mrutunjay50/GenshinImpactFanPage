@@ -1,28 +1,66 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { MdPalette, MdClose } from "react-icons/md";
 import ThemeData from "../Constants/ThemeData";
 import { useTheme } from "./ThemeContext";
 import { getThemeContainerClasses } from "../utils/themeUtils";
 
-const Switch = ({ rot }) => {
+const Switch = ({ isOpen, onClick }) => {
   return (
-    <div
-      className={`origin-center transition transform duration-300 ease-in-out ${
-        rot ? "rotate-90" : "-rotate-90"
-      } bg-[#ffffff1b] fixed right-2 bottom-[1.5rem] z-20 rounded-full h-[40px] w-[40px] flex flex-row items-center justify-center cursor-pointer`}
+    <motion.div
+      onClick={onClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          onClick();
+        }
+      }}
+      className="fixed right-4 bottom-4 z-50 cursor-pointer"
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
     >
-      <div className="relative w-[30px] h-[30px] flex flex-wrap">
-        <div className="bg-red-500 absolute top-1/2 transform -translate-y-1/2 left-0 rounded-full h-[15px] w-[15px]"></div>
-        <div className="bg-yellow-500 absolute top-0 bottom-0 left-1/2 transform -translate-x-1/2 rounded-full h-[15px] w-[15px]"></div>
-        <div className="bg-indigo-500 absolute top-1/2 transform -translate-y-1/2 right-0 rounded-full h-[15px] w-[15px]"></div>
-      </div>
-    </div>
+      <motion.div
+        className="h-14 w-14 rounded-full backdrop-blur-md bg-black/60 border-2 border-white/30 shadow-2xl flex items-center justify-center text-white text-2xl hover:border-white/50 hover:bg-black/80 transition-all duration-300"
+        animate={{
+          rotate: isOpen ? 180 : 0,
+          boxShadow: isOpen 
+            ? "0 0 30px rgba(255,255,255,0.3)" 
+            : "0 4px 20px rgba(0,0,0,0.3)"
+        }}
+        transition={{ type: "spring", stiffness: 200, damping: 20 }}
+      >
+        <AnimatePresence mode="wait">
+          {isOpen ? (
+            <motion.div
+              key="close"
+              initial={{ opacity: 0, rotate: -90 }}
+              animate={{ opacity: 1, rotate: 0 }}
+              exit={{ opacity: 0, rotate: 90 }}
+              transition={{ duration: 0.2 }}
+            >
+              <MdClose />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="palette"
+              initial={{ opacity: 0, rotate: 90 }}
+              animate={{ opacity: 1, rotate: 0 }}
+              exit={{ opacity: 0, rotate: -90 }}
+              transition={{ duration: 0.2 }}
+            >
+              <MdPalette />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+    </motion.div>
   );
 };
 
 const ThemeSwitch = () => {
   const { setTheme, theme } = useTheme();
-  const [button, setButton] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleThemeClick = (selectedTheme) => {
     // Create a new theme object with all values set to false
@@ -40,44 +78,96 @@ const ThemeSwitch = () => {
 
   return (
     <>
-      <div onClick={() => setButton(!button)} role="button" tabIndex={0}>
-        <Switch rot={button} />
-      </div>
-      <motion.div
-        initial={false}
-        animate={{
-          x: button ? 0 : 700 + 48
-        }}
-        transition={{ type: "spring", damping: 20, stiffness: 150 }}
-        className="font-caveat fixed bottom-[0.3rem] right-[3rem] z-10 backdrop-blur-md bg-black/40 border border-white/10 h-[10vh] w-[700px] p-2 flex flex-row flex-wrap rounded-lg text-white font-semibold shadow-2xl"
-      >
-        {ThemeData.map((item, index) => {
-          const isActive = theme[item.theme];
-          const themeClasses = getThemeContainerClasses(theme);
-          return (
-            <motion.div
-              key={item.theme}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ 
-                opacity: button ? 1 : 0,
-                scale: button ? 1 : 0.8
-              }}
-              transition={{ delay: index * 0.05 }}
-              onClick={() => handleThemeClick(item.theme)}
-              className={`relative mx-2 flex-1 text-center cursor-pointer transition-all duration-300 ease-in-out border-2 border-transparent hover:border-2 hover:bg-[#1e1d1d40] flex flex-col justify-center rounded-lg backdrop-blur-sm ${
-                isActive ? `${themeClasses.hover} ${themeClasses.bg} scale-105` : "bg-white/5"
-              } hover:scale-105 active:scale-95`}
-            >
-              {item.name}
-              <motion.div
-                className={`absolute h-[10px] w-[10px] ${item.midColor} -right-1 -top-1 rounded-full shadow-lg`}
-                animate={isActive ? { scale: [1, 1.2, 1] } : {}}
-                transition={{ duration: 2, repeat: Infinity }}
-              ></motion.div>
-            </motion.div>
-          );
-        })}
-      </motion.div>
+      <Switch isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
+      
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.9 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            className="fixed bottom-24 right-4 z-40 backdrop-blur-xl bg-black/70 border-2 border-white/20 rounded-2xl p-6 shadow-2xl min-w-[320px] max-w-[90vw]"
+            style={{
+              boxShadow: "0 8px 32px rgba(0,0,0,0.5), 0 0 40px rgba(255,255,255,0.1)"
+            }}
+          >
+            <div className="mb-4">
+              <h3 className="text-white text-xl font-bold mb-1 flex items-center gap-2">
+                <MdPalette className="text-2xl" />
+                Choose Theme
+              </h3>
+              <p className="text-white/60 text-sm">Select your preferred visual style</p>
+            </div>
+            
+            <div className="grid grid-cols-1 gap-3">
+              {ThemeData.map((item, index) => {
+                const isActive = theme[item.theme];
+                const themeClasses = getThemeContainerClasses(theme);
+                return (
+                  <motion.div
+                    key={item.theme}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.08, type: "spring", stiffness: 200 }}
+                    onClick={() => {
+                      handleThemeClick(item.theme);
+                      setIsOpen(false);
+                    }}
+                    className={`relative group cursor-pointer transition-all duration-300 ease-in-out border-2 rounded-xl p-4 backdrop-blur-sm ${
+                      isActive 
+                        ? `${themeClasses.hover} ${themeClasses.bg} border-white/50 shadow-lg scale-[1.02]` 
+                        : "bg-white/5 border-white/10 hover:border-white/30 hover:bg-white/10"
+                    } hover:scale-[1.02] active:scale-[0.98]`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-white font-semibold text-lg">
+                        {item.name}
+                      </span>
+                      <div className="flex items-center gap-2">
+                        {/* Color Preview */}
+                        <div className="flex gap-1">
+                          <div className={`w-4 h-4 rounded-full ${item.lightColor} border border-white/20`}></div>
+                          <div className={`w-4 h-4 rounded-full ${item.midColor} border border-white/20`}></div>
+                          <div className={`w-4 h-4 rounded-full ${item.darkColor} border border-white/20`}></div>
+                        </div>
+                        
+                        {/* Active Indicator */}
+                        <AnimatePresence>
+                          {isActive && (
+                            <motion.div
+                              initial={{ scale: 0, rotate: -180 }}
+                              animate={{ scale: 1, rotate: 0 }}
+                              exit={{ scale: 0, rotate: 180 }}
+                              className={`h-3 w-3 ${item.midColor} rounded-full shadow-lg`}
+                            />
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    </div>
+                    
+                    {/* Active Pulse Effect */}
+                    {isActive && (
+                      <motion.div
+                        className={`absolute inset-0 ${item.midColor} opacity-20 rounded-xl blur-xl -z-10`}
+                        animate={{ 
+                          opacity: [0.2, 0.4, 0.2],
+                          scale: [1, 1.05, 1]
+                        }}
+                        transition={{ 
+                          duration: 2, 
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                    )}
+                  </motion.div>
+                );
+              })}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };

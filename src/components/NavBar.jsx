@@ -60,6 +60,11 @@ const NavBar = () => {
 
         <ul className="flex flex-row justify-center items-center text-white mr-4 z-10">
           <li className="xs:mx-1 sm:mx-5">
+            <NavLink to="/GenshinImpactFanPage/characters" className="backdrop-blur-sm bg-white/5 hover:bg-white/10 px-4 py-2 rounded-lg transition-all duration-300">
+              Characters
+            </NavLink>
+          </li>
+          <li className="xs:mx-1 sm:mx-5">
             <NavLink to="/GenshinImpactFanPage/login" className="backdrop-blur-sm bg-white/5 hover:bg-white/10 px-4 py-2 rounded-lg transition-all duration-300">
               Login
             </NavLink>
