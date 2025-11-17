@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { useState } from "react";
 import {
   Element_Anemo,
   Element_Cryo,
@@ -22,147 +21,241 @@ const elementIconMap = {
 };
 
 const elementColorMap = {
-  Anemo: "from-green-400/20 to-teal-500/20 border-green-400/30",
-  Cryo: "from-cyan-400/20 to-blue-500/20 border-cyan-400/30",
-  Dendro: "from-lime-400/20 to-green-500/20 border-lime-400/30",
-  Electro: "from-purple-400/20 to-indigo-500/20 border-purple-400/30",
-  Geo: "from-yellow-400/20 to-amber-500/20 border-yellow-400/30",
-  Hydro: "from-blue-400/20 to-cyan-500/20 border-blue-400/30",
-  Pyro: "from-red-400/20 to-orange-500/20 border-red-400/30",
-};
-
-const rarityGradientMap = {
-  4: "from-purple-500/30 to-purple-600/30",
-  5: "from-yellow-400/30 via-orange-500/30 to-yellow-600/30",
+  Anemo: {
+    glow: "rgba(16, 185, 129, 0.3)",
+    border: "rgba(16, 185, 129, 0.4)",
+    accent: "rgb(16, 185, 129)",
+  },
+  Cryo: {
+    glow: "rgba(6, 182, 212, 0.3)",
+    border: "rgba(6, 182, 212, 0.4)",
+    accent: "rgb(6, 182, 212)",
+  },
+  Dendro: {
+    glow: "rgba(132, 204, 22, 0.3)",
+    border: "rgba(132, 204, 22, 0.4)",
+    accent: "rgb(132, 204, 22)",
+  },
+  Electro: {
+    glow: "rgba(168, 85, 247, 0.3)",
+    border: "rgba(168, 85, 247, 0.4)",
+    accent: "rgb(168, 85, 247)",
+  },
+  Geo: {
+    glow: "rgba(234, 179, 8, 0.3)",
+    border: "rgba(234, 179, 8, 0.4)",
+    accent: "rgb(234, 179, 8)",
+  },
+  Hydro: {
+    glow: "rgba(59, 130, 246, 0.3)",
+    border: "rgba(59, 130, 246, 0.4)",
+    accent: "rgb(59, 130, 246)",
+  },
+  Pyro: {
+    glow: "rgba(239, 68, 68, 0.3)",
+    border: "rgba(239, 68, 68, 0.4)",
+    accent: "rgb(239, 68, 68)",
+  },
 };
 
 const CharacterCard = ({ character, index }) => {
   const elementIcon = elementIconMap[character.element] || null;
-  const elementColor = elementColorMap[character.element] || "from-gray-400/20 to-gray-500/20 border-gray-400/30";
-  const rarityGradient = rarityGradientMap[character.rarity] || "from-gray-400/30 to-gray-600/30";
+  const elementStyle = elementColorMap[character.element] || {
+    glow: "rgba(156, 163, 175, 0.3)",
+    border: "rgba(156, 163, 175, 0.4)",
+    accent: "rgb(156, 163, 175)",
+  };
   const [imageError, setImageError] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleImageError = () => {
     setImageError(true);
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 50, scale: 0.9 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{
-        type: "spring",
-        duration: 0.2,
-        stiffness: 100,
-        damping: 15,
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="group relative w-full h-[480px] rounded-xl overflow-hidden bg-gradient-to-b from-black/80 via-black/60 to-black/80 backdrop-blur-sm border border-white/10"
+      style={{
+        boxShadow: isHovered 
+          ? `0 0 30px ${elementStyle.glow}, 0 8px 32px rgba(0,0,0,0.4)`
+          : "0 4px 20px rgba(0,0,0,0.3)",
+        transform: isHovered ? "translateY(-15px)" : "translateY(0)",
+        transition: "transform 0.3s ease-out, box-shadow 0.3s ease-out",
+        willChange: "transform",
       }}
-      whileHover={{ scale: 1.05, y: -8 }}
-      className="group relative w-full h-[450px] rounded-2xl overflow-hidden border-2 border-white/20 bg-gradient-to-br from-black/40 via-black/20 to-black/40 backdrop-blur-md shadow-2xl hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:border-white/40 transition-all duration-500"
     >
-      {/* Rarity gradient overlay */}
+      {/* Futuristic border glow */}
       <div
-        className={`absolute inset-0 bg-gradient-to-br ${rarityGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10`}
+        className="absolute inset-0 rounded-xl transition-opacity duration-400"
+        style={{
+          border: `1px solid ${elementStyle.border}`,
+          opacity: isHovered ? 1 : 0.3,
+        }}
       />
 
-      {/* Element gradient border effect */}
-      <div
-        className={`absolute inset-0 bg-gradient-to-br ${elementColor} opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 blur-xl`}
-      />
+      {/* Corner accent lines */}
+      <div className="absolute top-0 left-0 w-12 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="absolute top-0 left-0 h-12 w-px bg-gradient-to-b from-transparent via-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="absolute bottom-0 right-0 w-12 h-px bg-gradient-to-l from-transparent via-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="absolute bottom-0 right-0 h-12 w-px bg-gradient-to-t from-transparent via-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-      {/* Character Image */}
-      <div className="relative w-full h-[70%] overflow-hidden">
+      {/* Character Image with minimal overlay */}
+      <div className="relative w-full h-[68%] overflow-hidden">
         <img
           src={imageError ? Lumine0 : character.image || Lumine0}
           alt={character.name}
           onError={handleImageError}
-          className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700"
+          className={`w-full h-full object-cover object-center transition-transform duration-600 ease-out ${
+            isHovered ? "scale-108" : "scale-100"
+          }`}
         />
-        {/* Gradient overlay on image */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+        {/* Minimal gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+        
+        {/* Subtle scan line effect */}
+        <div
+          className={`absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent ${
+            isHovered ? "animate-scan-line" : ""
+          }`}
+        />
       </div>
 
-      {/* Content Section */}
-      <div className="absolute bottom-0 left-0 right-0 p-5 z-20">
-        {/* Character Name and Rarity */}
-        <div className="flex items-center justify-between mb-2">
-          <h3 className="text-white font-bold text-xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+      {/* Content Section - Minimalist Design */}
+      <div className="absolute bottom-0 left-0 right-0 p-6 z-20 bg-gradient-to-t from-black/95 to-transparent">
+        {/* Character Name - Futuristic Typography */}
+        <div
+          className={`flex items-center justify-between mb-4 transition-transform duration-300 ${
+            isHovered ? "translate-x-1" : "translate-x-0"
+          }`}
+        >
+          <h3 
+            className="text-white font-light text-2xl tracking-wider uppercase"
+            style={{
+              textShadow: `0 0 20px ${elementStyle.glow}, 0 2px 10px rgba(0,0,0,0.8)`,
+              letterSpacing: "0.15em",
+            }}
+          >
             {character.name}
           </h3>
-          <div className="flex items-center gap-1">
+          {/* Minimal rarity indicator */}
+          <div className="flex items-center gap-0.5">
             {[...Array(character.rarity || 4)].map((_, i) => (
-              <motion.div
+              <div
                 key={i}
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: index * 0.1 + i * 0.05, type: "spring" }}
-                className="text-yellow-400 text-lg"
-              >
-                ★
-              </motion.div>
+                className={`w-1.5 h-1.5 rounded-full animate-scale-in ${
+                  character.rarity === 5 ? "bg-yellow-400" : "bg-purple-400"
+                }`}
+                style={{
+                  boxShadow: character.rarity === 5 
+                    ? "0 0 8px rgba(234, 179, 8, 0.6)"
+                    : "0 0 8px rgba(168, 85, 247, 0.6)",
+                  animationDelay: `${index * 0.08 + i * 0.03}s`,
+                }}
+              />
             ))}
           </div>
         </div>
 
-        {/* Element and Weapon Type */}
-        <div className="flex items-center gap-3 mb-3">
+        {/* Element and Weapon - Clean Badges */}
+        <div className="flex items-center gap-3 mb-4">
           {elementIcon && (
-            <motion.img
-              src={elementIcon}
-              alt={character.element}
-              className="w-8 h-8 drop-shadow-lg"
-              whileHover={{ rotate: 360, scale: 1.2 }}
-              transition={{ duration: 0.5 }}
-            />
+            <div
+              className={`relative cursor-pointer transition-all duration-800 ease-in-out ${
+                isHovered ? "scale-110 rotate-360" : "scale-100 rotate-0"
+              } hover:scale-120 hover:rotate-360`}
+            >
+              <img
+                src={elementIcon}
+                alt={character.element}
+                className="w-7 h-7 opacity-80"
+              />
+            </div>
           )}
-          <span className="text-white/80 text-sm font-semibold bg-black/40 px-3 py-1 rounded-lg backdrop-blur-sm border border-white/20">
+          <span 
+            className="text-xs font-medium tracking-wider uppercase px-3 py-1.5 border border-white/20 bg-black/40 backdrop-blur-sm"
+            style={{
+              color: elementStyle.accent,
+              borderColor: elementStyle.border,
+            }}
+          >
             {character.element}
           </span>
-          <span className="text-white/70 text-xs bg-black/30 px-2 py-1 rounded border border-white/10">
+          <span className="text-white/60 text-xs font-light tracking-wide uppercase px-2.5 py-1.5 border border-white/10 bg-black/30">
             {character.weaponType}
           </span>
         </div>
 
-        {/* Description */}
-        <p className="text-white/90 text-sm line-clamp-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+        {/* Description - Minimal */}
+        <p
+          className={`text-white/70 text-xs leading-relaxed line-clamp-2 font-light tracking-wide transition-opacity duration-300 ${
+            isHovered ? "opacity-90" : "opacity-70"
+          }`}
+        >
           {character.description || "No description available."}
         </p>
 
-        {/* Hover Details */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileHover={{ opacity: 1, y: 0 }}
-          className="mt-3 pt-3 border-t border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-300"
+        {/* Hover Details - Minimal Info */}
+        <div
+          className={`overflow-hidden mt-4 pt-4 border-t border-white/10 transition-all duration-500 ease-out ${
+            isHovered ? "opacity-100 max-h-96 pt-4" : "opacity-0 max-h-0 pt-0"
+          }`}
         >
-          <div className="flex flex-col gap-2 text-xs text-white/80">
+          <div className={`flex flex-col gap-2 text-xs text-white/60 font-light tracking-wide transition-all duration-500 ease-out ${
+            isHovered ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
+          }`}>
             {character.birthday && (
-              <div className="flex items-center gap-2">
-                <span className="font-semibold">Birthday:</span>
+              <div className={`flex items-center justify-between transition-all duration-500 ease-out ${
+                isHovered ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
+              }`} style={{ transitionDelay: isHovered ? "0.1s" : "0s" }}>
+                <span className="uppercase tracking-wider text-white/40">Birthday</span>
                 <span>{character.birthday}</span>
               </div>
             )}
             {character.jpVoice && (
-              <div className="flex items-center gap-2">
-                <span className="font-semibold">JP Voice:</span>
-                <span>{character.jpVoice}</span>
+              <div className={`flex items-center justify-between transition-all duration-500 ease-out ${
+                isHovered ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
+              }`} style={{ transitionDelay: isHovered ? "0.15s" : "0s" }}>
+                <span className="uppercase tracking-wider text-white/40">Voice</span>
+                <span className="truncate">{character.jpVoice}</span>
               </div>
             )}
             {character.weapon && (
-              <div className="flex items-center gap-2">
-                <span className="font-semibold">Weapon:</span>
+              <div className={`flex items-center justify-between transition-all duration-500 ease-out ${
+                isHovered ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
+              }`} style={{ transitionDelay: isHovered ? "0.2s" : "0s" }}>
+                <span className="uppercase tracking-wider text-white/40">Weapon</span>
                 <span className="truncate">{character.weapon}</span>
               </div>
             )}
           </div>
-        </motion.div>
+        </div>
       </div>
 
-      {/* Region Badge */}
-      <div className="absolute top-4 left-4 z-20">
-        <span className="text-white text-xs font-bold bg-black/60 px-3 py-1 rounded-full backdrop-blur-md border border-white/30 drop-shadow-lg">
+      {/* Region Badge - Minimal */}
+      <div
+        className="absolute top-4 left-4 z-20 animate-scale-in"
+        style={{
+          animationDelay: `${index * 0.08 + 0.2}s`,
+        }}
+      >
+        <span className="text-white/80 text-[10px] font-light tracking-widest uppercase px-3 py-1.5 border border-white/20 bg-black/40 backdrop-blur-sm">
           {character.region}
         </span>
       </div>
-    </motion.div>
+
+      {/* Subtle particle effect */}
+      {isHovered && (
+        <div
+          className="absolute top-1/2 left-1/2 w-1 h-1 rounded-full animate-particle-float"
+          style={{
+            backgroundColor: elementStyle.accent,
+            boxShadow: `0 0 10px ${elementStyle.accent}`,
+          }}
+        />
+      )}
+    </div>
   );
 };
 

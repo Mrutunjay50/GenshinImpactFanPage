@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { getCharactersByRegion, getAllCharacters, getAvailableRegions } from "../../services/characterService";
 import CharacterCard from "./CharacterCard";
 import { BackgroundImage } from "../ui";
@@ -32,6 +31,7 @@ const CharactersView = () => {
   const [error, setError] = useState(null);
   const [selectedRegion, setSelectedRegion] = useState("All");
   const [selectedElement, setSelectedElement] = useState("All");
+  const [selectedRarity, setSelectedRarity] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
 
   // Get available regions from Region_Data
@@ -66,16 +66,20 @@ const CharactersView = () => {
     }
   };
 
-  // Filter characters by element and search query
+  // Filter characters by element, rarity, and search query
   const filteredCharacters = characters.filter((character) => {
     const matchesElement =
       selectedElement === "All" || character.element === selectedElement;
+    const matchesRarity =
+      selectedRarity === "All" || 
+      character.rarity === parseInt(selectedRarity) ||
+      character.rarity === selectedRarity;
     const matchesSearch =
       searchQuery === "" ||
       character.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       (character.description &&
         character.description.toLowerCase().includes(searchQuery.toLowerCase()));
-    return matchesElement && matchesSearch;
+    return matchesElement && matchesRarity && matchesSearch;
   });
 
   return (
@@ -89,27 +93,17 @@ const CharactersView = () => {
     >
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ type: "spring", duration: 0.8 }}
-          className="text-center mb-12"
-        >
+        <div className="text-center mb-12 animate-fade-in-down">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
             Characters of Teyvat
           </h1>
           <p className="text-white/80 text-lg md:text-xl">
             Explore the heroes and legends from across the seven nations
           </p>
-        </motion.div>
+        </div>
 
         {/* Filters - Single Line */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ type: "spring", duration: 0.8, delay: 0.2 }}
-          className="mb-6"
-        >
+        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
           <div className="flex flex-col sm:flex-row gap-3 items-center justify-center">
             {/* Search Bar */}
             <div className="relative flex-1 w-full sm:max-w-md">
@@ -154,48 +148,49 @@ const CharactersView = () => {
                 ))}
               </select>
             </div>
+
+            {/* Rarity Filter */}
+            <div className="w-full sm:w-auto">
+              <select
+                value={selectedRarity}
+                onChange={(e) => setSelectedRarity(e.target.value)}
+                className="w-full sm:w-auto min-w-[110px] px-4 py-2.5 rounded-lg bg-black/40 backdrop-blur-md border-2 border-white/20 text-white text-sm focus:outline-none focus:border-white/50 transition-all duration-300 cursor-pointer"
+              >
+                <option value="All" className="bg-black/90">All Stars</option>
+                <option value="5" className="bg-black/90">5 ⭐</option>
+                <option value="4" className="bg-black/90">4 ⭐</option>
+              </select>
+            </div>
           </div>
 
           {/* Results Count - Compact */}
           <div className="text-center text-white/60 text-xs mt-2">
             Showing {filteredCharacters.length} character{filteredCharacters.length !== 1 ? "s" : ""}
           </div>
-        </motion.div>
+        </div>
 
         {/* Loading State */}
         {loading && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="flex justify-center items-center py-20"
-          >
+          <div className="flex justify-center items-center py-20 animate-fade-in">
             <div className="text-white text-xl">Loading characters...</div>
-          </motion.div>
+          </div>
         )}
 
         {/* Error State */}
         {error && !loading && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-red-500/20 backdrop-blur-md border-2 border-red-500/50 rounded-xl p-6 text-center text-white"
-          >
+          <div className="bg-red-500/20 backdrop-blur-md border-2 border-red-500/50 rounded-xl p-6 text-center text-white animate-scale-in">
             <p className="text-lg font-semibold">Error loading characters</p>
             <p className="text-sm text-white/80 mt-2">{error}</p>
-          </motion.div>
+          </div>
         )}
 
         {/* Characters Grid */}
         {!loading && !error && (
-          <AnimatePresence mode="wait">
+          <>
             {filteredCharacters.length > 0 ? (
-              <motion.div
-                key={`${selectedRegion}-${selectedElement}-${searchQuery}`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+              <div
+                key={`${selectedRegion}-${selectedElement}-${selectedRarity}-${searchQuery}`}
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 animate-fade-in"
               >
                 {filteredCharacters.map((character, index) => (
                   <CharacterCard
@@ -204,19 +199,15 @@ const CharactersView = () => {
                     index={index}
                   />
                 ))}
-              </motion.div>
+              </div>
             ) : (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-center py-20"
-              >
+              <div className="text-center py-20 animate-fade-in-up">
                 <p className="text-white/70 text-xl">
                   No characters found matching your criteria.
                 </p>
-              </motion.div>
+              </div>
             )}
-          </AnimatePresence>
+          </>
         )}
       </div>
     </BackgroundImage>
