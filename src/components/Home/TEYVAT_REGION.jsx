@@ -95,25 +95,57 @@ const Teyvat_Region = () => {
       </div>
 
       {/* Footer Section */}
-      <div className="flex flex-col text-[#e2dfdf] items-center pb-4">
+      <motion.div 
+        className="flex flex-col text-[#e2dfdf] items-center pb-8 pt-8"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
         <img
           src={LOGO}
           alt="GENSHIN"
-          className="xs:h-[80px] ss:h-[50px] sm:h-[70px] xs:w-[160px] ss:w-[100px] sm:w-[120px] z-10"
+          className="xs:h-[80px] ss:h-[50px] sm:h-[70px] xs:w-[160px] ss:w-[100px] sm:w-[120px] z-10 mb-6 drop-shadow-lg"
         />
-        <ul className="flex items-center justify-around w-[20%] z-10">
-          <li className="xs:mx-1 sm:mx-5">
-            <NavLink to="#" className="text-[#e2dfdf]">
+        <ul className="flex items-center justify-center gap-8 z-10 flex-wrap">
+          <motion.li
+            whileHover={{ scale: 1.1, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <a 
+              href="#about"
+              onClick={(e) => {
+                e.preventDefault();
+                const element = document.getElementById('about');
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }}
+              className="text-[#e2dfdf] backdrop-blur-sm bg-white/10 hover:bg-white/20 px-6 py-3 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-lg hover:shadow-xl font-semibold cursor-pointer inline-block"
+            >
               About Me
-            </NavLink>
-          </li>
-          <li className="xs:mx-1 sm:mx-5">
-            <NavLink to="#" className="text-[#e2dfdf]">
+            </a>
+          </motion.li>
+          <motion.li
+            whileHover={{ scale: 1.1, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <a 
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                const element = document.getElementById('contact');
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }}
+              className="text-[#e2dfdf] backdrop-blur-sm bg-white/10 hover:bg-white/20 px-6 py-3 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-lg hover:shadow-xl font-semibold cursor-pointer inline-block"
+            >
               Contact Me
-            </NavLink>
-          </li>
+            </a>
+          </motion.li>
         </ul>
-      </div>
+      </motion.div>
     </BackgroundImage>
   );
 };
