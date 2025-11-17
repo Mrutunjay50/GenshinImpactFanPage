@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getCharactersByRegion, getAllCharacters, getAvailableRegions } from "../../services/characterService";
 import CharacterCard from "./CharacterCard";
+import CardStyleSelector from "./CardStyleSelector";
 import { BackgroundImage } from "../ui";
 import { useTheme } from "../ThemeContext";
 import Region_Data from "../../Constants/Region_Data";
@@ -92,14 +93,20 @@ const CharactersView = () => {
       }}
     >
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12 animate-fade-in-down">
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
-            Characters of Teyvat
-          </h1>
-          <p className="text-white/80 text-lg md:text-xl">
-            Explore the heroes and legends from across the seven nations
-          </p>
+        {/* Header with Card Style Selector */}
+        <div className="relative mb-12 animate-fade-in-down z-10">
+          <div className="text-center">
+            <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
+              Characters of Teyvat
+            </h1>
+            <p className="text-white/80 text-lg md:text-xl">
+              Explore the heroes and legends from across the seven nations
+            </p>
+          </div>
+          {/* Card Style Selector - Top Right */}
+          <div className="absolute top-0 right-0">
+            <CardStyleSelector />
+          </div>
         </div>
 
         {/* Filters - Single Line */}
@@ -164,7 +171,7 @@ const CharactersView = () => {
           </div>
 
           {/* Results Count - Compact */}
-          <div className="text-center text-white/60 text-xs mt-2">
+          <div className="text-center text-white/60 text-xs mt-2 z-0">
             Showing {filteredCharacters.length} character{filteredCharacters.length !== 1 ? "s" : ""}
           </div>
         </div>
