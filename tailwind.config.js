@@ -5,7 +5,10 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {fontFamily: {
+      revolution: ["Protest Revolution", "sans-serif"],
+      caveat: ["Caveat", "cursive"],
+     },},
   },
   plugins: [],
 }
