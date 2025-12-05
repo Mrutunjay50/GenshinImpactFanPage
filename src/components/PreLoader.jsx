@@ -80,7 +80,7 @@ const PreLoader = () => {
             initial="initial"
             animate="animate"
             src={Loader1}
-            className="h-[45px] bg-white absolute top-0 left-0 object-cover object-left"
+            className="h-[45px] bg-white absolute top-0 left-0 object-cover object-left rounded-3xl"
             alt=""
             style={{ clipPath: "inset(0 0 0 0)" }}
           />
