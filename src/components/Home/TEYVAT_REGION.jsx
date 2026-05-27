@@ -15,137 +15,152 @@ const Teyvat_Region = () => {
   const { theme } = useTheme();
   const themeClasses = getThemeContainerClasses(theme);
 
-  const paimonMessageClasses = `ease-in-out p-3 w-[200px] rounded-xl absolute top-[-30%] right-[-30%] ${
-    showMessage ? "opacity-100" : "opacity-0"
-  } ${themeClasses.bg} z-0 transition duration-500`;
-
   return (
     <BackgroundImage
-      className="relative pt-[13%] bg-[#090802]"
+      className="relative min-h-screen overflow-hidden bg-[#090802] px-4 pb-16 pt-24 sm:px-6 lg:px-8"
       backgroundOptions={{
         backgroundSize: theme.ThemeZhongli || theme.ThemeHome ? "cover" : "100% auto",
         backgroundAttachment: theme.ThemeZhongli ? "scroll" : "fixed",
         backgroundPosition: theme.ThemeZhongli || theme.ThemeEi ? "initial" : "center",
       }}
     >
-      {/* Overview Section */}
-      <motion.div
-        variants={{
-          hidden: { opacity: 0, y: 100 },
-          visible: { opacity: 1, y: 0 },
-        }}
-        initial="hidden"
-        animate="visible"
-        transition={{ type: "spring", duration: 1, bounce: 0.3 }}
-        className="h-[calc(100vh-20vh)] flex flex-row justify-center"
-      >
-        <Card
-          className="group text-white w-[60%] h-[280px] mx-[1%] p-8 text-dimWhite relative font-caveat text-[18px]"
-          opacity="default"
-          glassmorphism={true}
+      <div className="mx-auto max-w-7xl">
+        <motion.section
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ type: "spring", duration: 1, bounce: 0.25 }}
+          className="grid gap-8 lg:grid-cols-[1.35fr_0.85fr] items-center"
         >
-          <p>
-            You have arrived in Teyvat — a fantasy world where the seven
-            elements flow and converge.
-          </p>
-          <br />
-          <p>
-            In the distant past, the Archons granted mortals unique elemental
-            abilities. With the help of such powers, people formed a bountiful
-            homeland out of the wilderness. However, 500 years ago, the
-            collapse of an ancient civilization turned the universe upside
-            down...
-          </p>
-          <br />
-          <p>
-            Though the calamity the world suffered has ceased, peace has yet
-            to be restored.
-          </p>
-          <br />
-          <div
-            className="w-[250px] absolute top-[-25%] overflow-hidden right-[-15%] transition ease-all duration-500 xs:opacity-90 ss:opacity-0 opacity-0 group-hover:opacity-100 cursor-pointer"
-            onMouseEnter={() => setShowMessage(true)}
-            onMouseLeave={() => setShowMessage(false)}
+          <Card
+            className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/80 p-8 text-white shadow-[0_40px_120px_rgba(0,0,0,0.35)] backdrop-blur-xl"
+            opacity="default"
+            glassmorphism={true}
           >
-            <img src={Paimon} alt="Paimon" />
-          </div>
-          <span className={paimonMessageClasses}>
-            Hello there!! This is Paimon your full time Teyvat guide
-          </span>
-          <hr className="border-yellow-200" />
-          <br />
-          <span className="absolute right-8 bottom-4">
-            <a
-              href="https://genshin.hoyoverse.com/en/home"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-[#e7dc36] transition duration-300"
+            <div className="space-y-6">
+              <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
+                Discover Teyvat in a smoother, richer fan experience.
+              </h1>
+              <p className="max-w-3xl text-base leading-8 text-white/80 sm:text-lg">
+                Explore beautiful regions, meet legendary characters, and enjoy fluid page animations across the whole fan page.
+              </p>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-5 shadow-inner shadow-white/5">
+                  <h2 className="text-sm uppercase tracking-[0.35em] text-slate-300">Immersive world</h2>
+                  <p className="mt-2 text-sm text-slate-200">Smooth transitions and clean layout let you focus on the lore.</p>
+                </div>
+                <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-5 shadow-inner shadow-white/5">
+                  <h2 className="text-sm uppercase tracking-[0.35em] text-slate-300">Responsive UI</h2>
+                  <p className="mt-2 text-sm text-slate-200">Improved readability, buttons, and modern spacing for all screen sizes.</p>
+                </div>
+              </div>
+            </div>
+            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/80 to-transparent opacity-90" />
+
+            <motion.div
+              className="absolute right-4 top-6 rounded-3xl border border-white/15 bg-slate-950/80 p-4 shadow-2xl backdrop-blur-xl"
+              initial={{ opacity: 0, scale: 0.9, y: -10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ delay: 0.35, duration: 0.5 }}
+              onMouseEnter={() => setShowMessage(true)}
+              onMouseLeave={() => setShowMessage(false)}
             >
-              Visit Official Genshin Page
-            </a>
-          </span>
-        </Card>
-      </motion.div>
+              <div className="flex items-center gap-3">
+                <img src={Paimon} alt="Paimon" className="h-14 w-14 rounded-full border border-white/10" />
+                <div>
+                  <p className="text-sm font-semibold text-white">Paimon</p>
+                  <p className="text-xs text-slate-300">Teyvat guide</p>
+                </div>
+              </div>
+              <motion.div
+                animate={{ opacity: showMessage ? 1 : 0, y: showMessage ? 0 : 10 }}
+                transition={{ duration: 0.25 }}
+                className="mt-3 rounded-2xl border border-white/10 bg-white/10 p-3 text-xs text-slate-100"
+              >
+                Hello there! I am your full-time Teyvat guide.
+              </motion.div>
+            </motion.div>
+          </Card>
 
-      <RegionTab />
-
-      {/* More In Game Details */}
-      <div className="mx-5 flex flex-wrap justify-center items-center pt-32">
-        <OutlinedInfo />
-      </div>
-
-      {/* Footer Section */}
-      <motion.div 
-        className="flex flex-col text-[#e2dfdf] items-center pb-8 pt-8"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
-        <img
-          src={LOGO}
-          alt="GENSHIN"
-          className="xs:h-[80px] ss:h-[50px] sm:h-[70px] xs:w-[160px] ss:w-[100px] sm:w-[120px] z-10 mb-6 drop-shadow-lg"
-        />
-        <ul className="flex items-center justify-center gap-8 z-10 flex-wrap">
-          <motion.li
-            whileHover={{ scale: 1.1, y: -2 }}
-            whileTap={{ scale: 0.95 }}
+          <motion.div
+            className="rounded-[2rem] border border-white/10 bg-slate-950/80 p-8 shadow-[0_40px_120px_rgba(0,0,0,0.35)] backdrop-blur-xl"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15, duration: 0.8 }}
           >
-            <a 
-              href="#about"
+            <div className="mb-6 flex items-center gap-4">
+              <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-500/15 text-2xl text-rose-300">✨</span>
+              <div>
+                <h2 className="text-xl font-semibold text-white">Why this fan page?</h2>
+                <p className="text-sm text-slate-300">A polished, modern take on the Genshin Impact world with better flow and clearer navigation.</p>
+              </div>
+            </div>
+            <div className="space-y-4">
+              <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-5">
+                <h3 className="text-base font-semibold text-white">Crisp animations</h3>
+                <p className="mt-2 text-sm text-slate-300">Every panel and page feels natural with subtle motion and smooth fade transitions.</p>
+              </div>
+              <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-5">
+                <h3 className="text-base font-semibold text-white">Organized content</h3>
+                <p className="mt-2 text-sm text-slate-300">Regions, characters, and account pages are easier to scan and use.</p>
+              </div>
+              <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-5">
+                <h3 className="text-base font-semibold text-white">Modern polish</h3>
+                <p className="mt-2 text-sm text-slate-300">Updated visual hierarchy, spacing, and glass effects for a premium feel.</p>
+              </div>
+            </div>
+          </motion.div>
+        </motion.section>
+
+        <div className="mx-auto mt-16 max-w-7xl px-2 sm:px-0">
+          <OutlinedInfo />
+        </div>
+
+        <div className="mt-16">
+          <RegionTab />
+        </div>
+
+        <motion.div
+          className="mt-20 flex flex-col items-center gap-6 text-center text-slate-200"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+        >
+          <img
+            src={LOGO}
+            alt="GENSHIN"
+            className="mx-auto h-20 w-auto object-contain drop-shadow-2xl"
+          />
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <NavLink
+              to="#about"
+              className="rounded-3xl border border-white/15 bg-white/10 px-6 py-3 text-sm text-white transition hover:bg-white/15"
               onClick={(e) => {
                 e.preventDefault();
-                const element = document.getElementById('about');
+                const element = document.getElementById("about");
                 if (element) {
-                  element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  element.scrollIntoView({ behavior: "smooth", block: "start" });
                 }
               }}
-              className="text-[#e2dfdf] backdrop-blur-sm bg-white/10 hover:bg-white/20 px-6 py-3 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-lg hover:shadow-xl font-semibold cursor-pointer inline-block"
             >
               About Me
-            </a>
-          </motion.li>
-          <motion.li
-            whileHover={{ scale: 1.1, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <a 
-              href="#contact"
+            </NavLink>
+            <NavLink
+              to="#contact"
+              className="rounded-3xl border border-white/15 bg-white/10 px-6 py-3 text-sm text-white transition hover:bg-white/15"
               onClick={(e) => {
                 e.preventDefault();
-                const element = document.getElementById('contact');
+                const element = document.getElementById("contact");
                 if (element) {
-                  element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  element.scrollIntoView({ behavior: "smooth", block: "start" });
                 }
               }}
-              className="text-[#e2dfdf] backdrop-blur-sm bg-white/10 hover:bg-white/20 px-6 py-3 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-lg hover:shadow-xl font-semibold cursor-pointer inline-block"
             >
               Contact Me
-            </a>
-          </motion.li>
-        </ul>
-      </motion.div>
+            </NavLink>
+          </div>
+        </motion.div>
+      </div>
     </BackgroundImage>
   );
 };
