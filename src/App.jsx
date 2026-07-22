@@ -12,7 +12,9 @@ import PreLoader from "./components/PreLoader";
 import MenuList from "./components/MenuList";
 import ThemeSwitch from "./components/ThemeSwitch";
 
-const PRELOADER_DELAY = 1200;
+// Keep the preloader up at least this long so the reveal animation can finish,
+// even if the page finishes loading sooner (e.g. from cache).
+const MIN_PRELOADER_TIME = 1800;
 
 const App = () => {
   const [contentLoaded, setContentLoaded] = useState(false);
@@ -20,12 +22,23 @@ const App = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const contentLoadTimer = setTimeout(() => {
-      setContentLoaded(true);
-    }, PRELOADER_DELAY);
+    const startTime = Date.now();
 
+    const finishLoading = () => {
+      const elapsed = Date.now() - startTime;
+      const remaining = Math.max(MIN_PRELOADER_TIME - elapsed, 0);
+      setTimeout(() => setContentLoaded(true), remaining);
+    };
+
+    // Wait until every resource (images, fonts, etc.) is fully loaded.
+    if (document.readyState === "complete") {
+      finishLoading();
+      return;
+    }
+
+    window.addEventListener("load", finishLoading);
     return () => {
-      clearTimeout(contentLoadTimer);
+      window.removeEventListener("load", finishLoading);
     };
   }, []);
 

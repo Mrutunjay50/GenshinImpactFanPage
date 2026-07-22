@@ -3,12 +3,11 @@ import { Loader1, Loader } from "../assets/index";
 import { motion } from "framer-motion";
 
 const PreLoader = () => {
-  const containerVariants = {
-    initial: { width: "0px", opacity: 1, height: "45px" },
+  const revealVariants = {
+    initial: { clipPath: "inset(0 100% 0 0)", opacity: 1 },
     animate: {
-      width: "280px",
+      clipPath: "inset(0 0% 0 0)",
       opacity: 1,
-      height: "45px",
       transition: { duration: 1.8, ease: "easeInOut" },
     },
   };
@@ -45,13 +44,13 @@ const PreLoader = () => {
 
       <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4">
         <motion.div variants={fadeInVariants} initial="initial" animate="animate" className="relative">
-          <img src={Loader} className="h-[45px] object-cover drop-shadow-2xl" alt="Loader" />
+          <img src={Loader} className="h-[45px] w-auto drop-shadow-2xl" alt="Loader" />
           <motion.img
-            variants={containerVariants}
+            variants={revealVariants}
             initial="initial"
             animate="animate"
             src={Loader1}
-            className="absolute left-0 top-0 h-[45px] object-cover"
+            className="absolute left-0 top-0 h-[45px] w-auto drop-shadow-2xl"
             alt=""
           />
         </motion.div>
