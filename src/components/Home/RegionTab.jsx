@@ -46,16 +46,16 @@ const RegionData = ({ item, index }) => (
       />
     )}
 
+    {/* Element badge — sits above the card normally, drops behind the character on hover */}
+    <span className="absolute right-6 top-6 z-20 inline-flex rounded-full border border-white/10 bg-slate-950/70 px-3 py-1 text-xs uppercase tracking-[0.25em] text-slate-200 transition-[z-index] duration-500 group-hover:z-0">
+      {item.element}
+    </span>
+
     <div className="relative z-30 flex h-full flex-col gap-5">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-xs uppercase tracking-[0.35em] text-slate-400">Region</p>
           <h3 className="mt-3 text-2xl font-semibold text-white">{item.nation}</h3>
-        </div>
-        <div className="flex items-center gap-3">
-          <span className="inline-flex rounded-full border border-white/10 bg-slate-950/70 px-3 py-1 text-xs uppercase tracking-[0.25em] text-slate-200">
-            {item.element}
-          </span>
         </div>
       </div>
 
