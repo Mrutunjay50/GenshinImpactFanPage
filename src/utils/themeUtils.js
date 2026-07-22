@@ -146,6 +146,72 @@ export const getThemeInputClasses = (theme) => {
 };
 
 /**
+ * Get theme-based accent classes for the auth pages (login / signup).
+ * Full static class strings so Tailwind's JIT picks them up.
+ */
+export const getThemeAccent = (theme) => {
+  if (theme.ThemeZhongli) {
+    return {
+      panel: "from-amber-500/20 via-yellow-500/10 to-slate-950/40",
+      glow1: "bg-amber-500/25",
+      glow2: "bg-yellow-500/20",
+      focus: "focus:border-amber-400/60 focus:ring-amber-500/30",
+      button: "bg-gradient-to-r from-amber-500 to-yellow-500 shadow-amber-500/25 hover:shadow-amber-500/30",
+      link: "text-amber-300 hover:text-amber-200",
+    };
+  }
+  if (theme.ThemeVenti) {
+    return {
+      panel: "from-teal-500/20 via-emerald-500/10 to-slate-950/40",
+      glow1: "bg-teal-500/25",
+      glow2: "bg-emerald-500/20",
+      focus: "focus:border-teal-400/60 focus:ring-teal-500/30",
+      button: "bg-gradient-to-r from-teal-500 to-emerald-500 shadow-teal-500/25 hover:shadow-teal-500/30",
+      link: "text-teal-300 hover:text-teal-200",
+    };
+  }
+  if (theme.ThemeEi) {
+    return {
+      panel: "from-purple-500/20 via-violet-500/10 to-slate-950/40",
+      glow1: "bg-purple-500/25",
+      glow2: "bg-violet-500/20",
+      focus: "focus:border-purple-400/60 focus:ring-purple-500/30",
+      button: "bg-gradient-to-r from-purple-500 to-violet-500 shadow-purple-500/25 hover:shadow-purple-500/30",
+      link: "text-purple-300 hover:text-purple-200",
+    };
+  }
+  if (theme.ThemeNahida) {
+    return {
+      panel: "from-lime-500/20 via-green-500/10 to-slate-950/40",
+      glow1: "bg-lime-500/25",
+      glow2: "bg-green-500/20",
+      focus: "focus:border-lime-400/60 focus:ring-lime-500/30",
+      button: "bg-gradient-to-r from-lime-500 to-green-500 shadow-lime-500/25 hover:shadow-lime-500/30",
+      link: "text-lime-300 hover:text-lime-200",
+    };
+  }
+  if (theme.ThemeFocalors) {
+    return {
+      panel: "from-sky-500/20 via-blue-500/10 to-slate-950/40",
+      glow1: "bg-sky-500/25",
+      glow2: "bg-blue-500/20",
+      focus: "focus:border-sky-400/60 focus:ring-sky-500/30",
+      button: "bg-gradient-to-r from-sky-500 to-blue-500 shadow-sky-500/25 hover:shadow-sky-500/30",
+      link: "text-sky-300 hover:text-sky-200",
+    };
+  }
+  // ThemeHome (default)
+  return {
+    panel: "from-indigo-500/20 via-violet-500/10 to-slate-950/40",
+    glow1: "bg-indigo-500/25",
+    glow2: "bg-violet-500/20",
+    focus: "focus:border-indigo-400/60 focus:ring-indigo-500/30",
+    button: "bg-gradient-to-r from-indigo-500 to-violet-500 shadow-indigo-500/25 hover:shadow-indigo-500/30",
+    link: "text-indigo-300 hover:text-indigo-200",
+  };
+};
+
+/**
  * Get theme-based button classes
  */
 export const getThemeButtonClasses = (theme) => {
