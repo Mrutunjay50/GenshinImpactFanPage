@@ -41,9 +41,11 @@ const CharacterCard = ({ character, index }) => {
   const elementColor = elementColorMap[character.element] || "from-gray-400/20 to-gray-500/20 border-gray-400/30";
   const rarityGradient = rarityGradientMap[character.rarity] || "from-gray-400/30 to-gray-600/30";
   const [imageError, setImageError] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleImageError = () => {
     setImageError(true);
+    setImageLoaded(true);
   };
 
   return (
@@ -71,11 +73,27 @@ const CharacterCard = ({ character, index }) => {
 
       {/* Character Image */}
       <div className="relative w-full h-[70%] overflow-hidden">
+        {/* Skeleton placeholder shown until the image is fully loaded, so the
+            interlaced PNG's coarse progressive pass is never visible */}
+        {!imageLoaded && (
+          <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-white/10 via-white/5 to-white/10" />
+        )}
         <img
+          ref={(node) => {
+            // Handle images already complete from cache before onLoad attaches
+            if (node && node.complete && node.naturalWidth > 0) {
+              setImageLoaded(true);
+            }
+          }}
           src={imageError ? Lumine0 : character.image || Lumine0}
           alt={character.name}
           onError={handleImageError}
-          className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700"
+          onLoad={() => setImageLoaded(true)}
+          loading="lazy"
+          decoding="async"
+          className={`w-full h-full object-cover object-center group-hover:scale-110 transition-all duration-700 ${
+            imageLoaded ? "opacity-100" : "opacity-0"
+          }`}
         />
         {/* Gradient overlay on image */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
